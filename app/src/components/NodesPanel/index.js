@@ -3,9 +3,9 @@ import React from "react";
 export const NodesPanel = () => {
   return (
     <div
-      className="accordion position-absolute top-0"
+      className="accordion position-absolute"
       id="node-panel"
-      style={{ width: "10rem" }}
+      style={{ top: "5rem", left: "2rem" }}
     >
       <div className="accordion-item">
         <div className="accordion-header">

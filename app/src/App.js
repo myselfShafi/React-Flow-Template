@@ -1,8 +1,8 @@
-import React, { useCallback } from "react";
+import React, { useCallback, useState } from "react";
 import ReactFlow, {
   Background,
   Controls,
-  MiniMap,
+  ReactFlowProvider,
   addEdge,
   useEdgesState,
   useNodesState,
@@ -11,29 +11,23 @@ import "./App.css";
 
 import "reactflow/dist/style.css";
 import { NodesPanel } from "./components/NodesPanel";
+import { Sidebar } from "./components/Sidebar";
 import { CustomNode } from "./components/customNode";
-
-const initialNodes = [
-  {
-    id: "1",
-    type: "customNode",
-    position: { x: 100, y: 100 },
-    data: { heading: "Send Message", content: "text message 1" },
-  },
-  {
-    id: "2",
-    type: "customNode",
-    position: { x: 200, y: 200 },
-    data: { heading: "Send Message", content: "text message 2" },
-  },
-];
-const initialEdges = [{ id: "e1-2", source: "1", target: "2" }];
+import { initialEdges, initialNodes } from "./content/initial-elements";
 
 const nodeTypes = { customNode: CustomNode };
 
 function App() {
   const [nodes, setNodes, onNodesChange] = useNodesState(initialNodes);
   const [edges, setEdges, onEdgesChange] = useEdgesState(initialEdges);
+
+  const [editText, setEditText] = useState("");
+  const [id, setId] = useState(null);
+
+  const onNodeClick = (e, node) => {
+    setId(node.id);
+    setEditText(node.data.content);
+  };
 
   const onConnect = useCallback(
     (params) => setEdges((eds) => addEdge(params, eds)),
@@ -42,19 +36,28 @@ function App() {
 
   return (
     <div className="App">
-      <ReactFlow
-        nodes={nodes}
-        edges={edges}
-        onNodesChange={onNodesChange}
-        onEdgesChange={onEdgesChange}
-        onConnect={onConnect}
-        nodeTypes={nodeTypes}
-      >
-        <Controls />
-        <MiniMap />
-        <Background variant="dots" gap={12} size={1} />
-      </ReactFlow>
-      <NodesPanel />
+      <ReactFlowProvider>
+        <ReactFlow
+          nodes={nodes}
+          edges={edges}
+          onNodesChange={onNodesChange}
+          onEdgesChange={onEdgesChange}
+          onConnect={onConnect}
+          nodeTypes={nodeTypes}
+          onNodeClick={onNodeClick}
+        >
+          <Controls />
+          <Background variant="dots" gap={12} size={1} />
+        </ReactFlow>
+        <NodesPanel />
+        <Sidebar
+          nodes={editText}
+          setText={setEditText}
+          textId={id}
+          setId={setId}
+          setNodes={setNodes}
+        />
+      </ReactFlowProvider>
     </div>
   );
 }
