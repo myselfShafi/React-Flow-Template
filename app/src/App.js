@@ -18,22 +18,22 @@ const initialNodes = [
     id: "1",
     type: "customNode",
     position: { x: 100, y: 100 },
-    data: { label: "1" },
+    data: { heading: "Send Message", content: "text message 1" },
   },
   {
     id: "2",
     type: "customNode",
     position: { x: 200, y: 200 },
-    data: { label: "2" },
+    data: { heading: "Send Message", content: "text message 2" },
   },
 ];
 const initialEdges = [{ id: "e1-2", source: "1", target: "2" }];
 
+const nodeTypes = { customNode: CustomNode };
+
 function App() {
   const [nodes, setNodes, onNodesChange] = useNodesState(initialNodes);
   const [edges, setEdges, onEdgesChange] = useEdgesState(initialEdges);
-
-  const nodeTypes = { customNode: CustomNode };
 
   const onConnect = useCallback(
     (params) => setEdges((eds) => addEdge(params, eds)),
