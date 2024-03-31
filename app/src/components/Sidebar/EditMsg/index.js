@@ -3,7 +3,7 @@ import { useReactFlow } from "reactflow";
 
 export const EditMessage = ({ value, textId, setText, setId }) => {
   const { setNodes } = useReactFlow();
-  const [isSaved, setIsSaved] = useState({});
+  const [isSaved, setIsSaved] = useState(null);
   const onTextChange = (e) => {
     e.preventDefault();
     setText(e.target.value);
@@ -41,7 +41,7 @@ export const EditMessage = ({ value, textId, setText, setId }) => {
         style={{ resize: "none" }}
         value={value}
         onChange={onTextChange}
-        onClick={() => setIsSaved({})}
+        onClick={() => setIsSaved(null)}
       ></textarea>
       <button
         type="submit"
@@ -52,10 +52,17 @@ export const EditMessage = ({ value, textId, setText, setId }) => {
         Submit
       </button>
       {isSaved && (
-        <div className={`alert alert-${isSaved.mode} text-center`} role="alert">
-          {isSaved.text}
+        <div
+          className={`alert alert-${isSaved?.mode} text-center`}
+          role="alert"
+        >
+          {isSaved?.text}
         </div>
       )}
+      <hr />
+      <h5 className="text-center">
+        To add a new node, deselect the current one
+      </h5>
     </div>
   );
 };

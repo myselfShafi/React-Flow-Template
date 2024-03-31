@@ -1,5 +1,6 @@
 import React from "react";
 import { EditMessage } from "./EditMsg";
+import { NodeSelection } from "./NodeSelection";
 
 export const Sidebar = ({ isSelected, text, textId, setText, setId }) => {
   return (
@@ -10,7 +11,8 @@ export const Sidebar = ({ isSelected, text, textId, setText, setId }) => {
       <header className="bg-primary-subtle p-2 rounded text-primary-emphasis mb-4">
         <h4 className="text-center">Edit Panel</h4>
       </header>
-      <section className="p-2">
+      <section className="p-2 text-info-emphasis">
+        <hr />
         {isSelected ? (
           <EditMessage
             value={text}
@@ -19,12 +21,9 @@ export const Sidebar = ({ isSelected, text, textId, setText, setId }) => {
             setText={setText}
           />
         ) : (
-          <div className="text-center">
-            <h5 className="text-info-emphasis">
-              Select a node to edit the message
-            </h5>
-          </div>
+          <NodeSelection />
         )}
+        <hr />
       </section>
     </div>
   );
