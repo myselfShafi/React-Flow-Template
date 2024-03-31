@@ -1,6 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
+import { useReactFlow } from "reactflow";
 
-export const EditMessage = ({ value, setNodes, textId, setText, setId }) => {
+export const EditMessage = ({ value, textId, setText, setId }) => {
+  const { setNodes } = useReactFlow();
+  const [isSaved, setIsSaved] = useState({});
   const onTextChange = (e) => {
     e.preventDefault();
     setText(e.target.value);
@@ -9,38 +12,50 @@ export const EditMessage = ({ value, setNodes, textId, setText, setId }) => {
   const submitText = () => {
     setNodes((nodes) => {
       const obj = nodes?.find((each) => each.id === textId);
-      let arr = nodes.filter((each) => each != obj);
+      let arr = nodes.filter((each) => each !== obj);
       if (obj) {
         obj.data.content = value;
+        setIsSaved({
+          mode: "success",
+          text: "Message has been changed successfully",
+        });
         return [...arr, obj];
       } else {
-        console.log("couldn't find the target node object");
+        setIsSaved({
+          mode: "error",
+          text: "Something went wrong! Please try later",
+        });
         return nodes;
       }
     });
-    setText("");
-    setId(null);
   };
   return (
     <div className="d-grid gap-0 row-gap-3">
       <label htmlFor="edit-box" className="form-label">
-        Edit Message:
+        <h5>Edit Message:</h5>
       </label>
       <textarea
-        className="form-control"
+        className={`form-control ${value === "" && "border border-danger"}`}
         id="edit-box"
         rows="3"
         style={{ resize: "none" }}
         value={value}
         onChange={onTextChange}
+        onClick={() => setIsSaved({})}
       ></textarea>
       <button
         type="submit"
         onClick={submitText}
-        className="btn btn-outline-success"
+        className="btn btn-outline-primary"
+        disabled={value === "" && true}
       >
         Submit
       </button>
+      {isSaved && (
+        <div className={`alert alert-${isSaved.mode} text-center`} role="alert">
+          {isSaved.text}
+        </div>
+      )}
     </div>
   );
 };

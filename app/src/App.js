@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import ReactFlow, {
   Background,
   Controls,
@@ -23,11 +23,17 @@ function App() {
 
   const [editText, setEditText] = useState("");
   const [id, setId] = useState(null);
+  const [isSelected, setIsSelected] = useState(false);
 
   const onNodeClick = (e, node) => {
     setId(node.id);
     setEditText(node.data.content);
   };
+
+  useEffect(() => {
+    const isSelected = nodes.some((each) => each.selected);
+    setIsSelected(isSelected);
+  }, [nodes]);
 
   const onConnect = useCallback(
     (params) => setEdges((eds) => addEdge(params, eds)),
@@ -51,11 +57,11 @@ function App() {
         </ReactFlow>
         <NodesPanel />
         <Sidebar
-          nodes={editText}
+          isSelected={isSelected}
+          text={editText}
           setText={setEditText}
           textId={id}
           setId={setId}
-          setNodes={setNodes}
         />
       </ReactFlowProvider>
     </div>
