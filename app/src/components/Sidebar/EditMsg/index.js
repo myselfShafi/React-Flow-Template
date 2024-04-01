@@ -31,18 +31,20 @@ export const EditMessage = ({ value, textId, setText, setId }) => {
   };
   return (
     <div className="d-grid gap-0 row-gap-3">
-      <label htmlFor="edit-box" className="form-label">
-        <h5>Edit Message:</h5>
-      </label>
-      <textarea
-        className={`form-control ${value === "" && "border border-danger"}`}
-        id="edit-box"
-        rows="3"
-        style={{ resize: "none" }}
-        value={value}
-        onChange={onTextChange}
-        onClick={() => setIsSaved(null)}
-      ></textarea>
+      <div className="w-75 justify-self-center">
+        <label htmlFor="edit-box" className="form-label">
+          <h5>Edit Message:</h5>
+        </label>
+        <textarea
+          className={`form-control ${value === "" && "border border-danger"}`}
+          id="edit-box"
+          rows="3"
+          style={{ resize: "none" }}
+          value={value}
+          onChange={onTextChange}
+          onClick={() => setIsSaved(null)}
+        ></textarea>
+      </div>
       <button
         type="submit"
         onClick={submitText}

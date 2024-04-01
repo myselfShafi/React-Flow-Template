@@ -12,7 +12,6 @@ export const SaveBtn = () => {
           (edge) => edge.source === node.id || edge.target === node.id
         )
     );
-    console.log({ unConnectedNodes });
     if (!unConnectedNodes.length > 0) {
       setSaveResp({
         mode: "success",
