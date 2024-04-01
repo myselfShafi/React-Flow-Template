@@ -15,12 +15,12 @@ export const SaveBtn = () => {
     if (!unConnectedNodes.length > 0) {
       setSaveResp({
         mode: "success",
-        text: "Changes stored successfully",
+        text: "flow saved successfully",
       });
     } else {
       setSaveResp({
         mode: "danger",
-        text: "All Nodes/Edges not connected",
+        text: "Cannot save flow",
       });
     }
   };
