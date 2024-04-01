@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/React-Flow-Template/static/css/main.d0eec791.css",
+    "main.js": "/React-Flow-Template/static/js/main.990ef962.js",
+    "index.html": "/React-Flow-Template/index.html",
+    "main.d0eec791.css.map": "/React-Flow-Template/static/css/main.d0eec791.css.map",
+    "main.990ef962.js.map": "/React-Flow-Template/static/js/main.990ef962.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.d0eec791.css",
+    "static/js/main.990ef962.js"
+  ]
+}
